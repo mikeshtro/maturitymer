@@ -1,19 +1,15 @@
-import { Title } from "solid-start";
-import Counter from "~/components/Counter";
+import Timer from '~/components/Timer';
 
 export default function Home() {
   return (
-    <main>
-      <Title>Hello World</Title>
-      <h1>Hello world!</h1>
-      <Counter />
-      <p>
-        Visit{" "}
-        <a href="https://start.solidjs.com" target="_blank">
-          start.solidjs.com
-        </a>{" "}
-        to learn how to build SolidStart apps.
-      </p>
-    </main>
+    <>
+      <Timer
+        parts={[
+          { name: 'Part 1', subParts: [60, 60, 60, 60, 60] },
+          { name: 'Part 2', subParts: [60, 60, 60, 60, 60] },
+          { name: 'Part 3', subParts: [60, 60, 60, 60, 60] },
+        ]}
+      />
+    </>
   );
 }
