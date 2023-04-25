@@ -11,22 +11,29 @@ type TimerProps = {
 };
 
 const Timer: Component<TimerProps> = (props) => {
+  const indexes = Array.from({ length: props.parts.length + 1}, (_, index) => index + 1);
   return (
     <div class={styles.timer}>
-      <For each={props.parts}>
-        {(part, index) => (
-          <div class={styles.part}>
-            <div>{index()}</div>
-            <div class={styles.subparts}>
-              <For each={part.subParts}>
-                {(subpart) => (
-                  <div class={styles.subpart} style={{ flex: subpart }}></div>
-                )}
-              </For>
+      <div class={styles.labels}>
+        <For each={indexes}>
+          {(index) => <div class={styles.label}>{index}</div>}
+        </For>
+      </div>
+      <div class={styles.parts}>
+        <For each={props.parts}>
+          {(part) => (
+            <div class={styles.part}>
+              <div class={styles.subparts}>
+                <For each={part.subParts}>
+                  {(subpart) => (
+                    <div class={styles.subpart} style={{ flex: subpart }}></div>
+                  )}
+                </For>
+              </div>
             </div>
-          </div>
-        )}
-      </For>
+          )}
+        </For>
+      </div>
     </div>
   );
 };

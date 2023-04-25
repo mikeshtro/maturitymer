@@ -1,6 +1,19 @@
 .timer {
+  padding: 1rem;
+}
+
+.labels {
   display: flex;
-  width: 100%;
+  justify-content: space-between;
+}
+
+.label {
+  width: fit-content;
+  transform: translateX(-50%);
+}
+
+.parts {
+  display: flex;
 }
 
 .part {
