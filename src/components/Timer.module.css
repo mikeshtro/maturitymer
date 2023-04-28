@@ -9,6 +9,10 @@
 
 .label {
   width: fit-content;
+  transform: translateX(50%);
+}
+
+.label:first-child {
   transform: translateX(-50%);
 }
 
