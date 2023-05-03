@@ -2,36 +2,18 @@
   padding: 1rem;
 }
 
-.labels {
-  display: flex;
-  justify-content: space-between;
-}
-
-.label {
-  width: fit-content;
-  transform: translateX(50%);
-}
-
-.label:first-child {
-  transform: translateX(-50%);
-}
-
 .parts {
   display: flex;
 }
 
 .part {
-  flex: 1;
-}
-
-.subparts {
   display: flex;
   align-items: flex-end;
   height: 2.5rem;
   border-right: 3px solid #1c1c1c;
 }
 
-.subparts:last-child {
+.part:first-child {
   border-left: 3px solid #1c1c1c;
 }
 
