@@ -7,17 +7,17 @@ type Part = {
 
 type TimerLabelsProps = {
   parts: Part[];
+  total: number;
 }
 
 export const TimerLabels: Component<TimerLabelsProps> = (props) => {
   const labels = [{ label: 0, length: 0, translate: -50 }];
-  const total = props.parts.reduce((sum, part) => sum + part.duration, 0);
   for (let index = 0; index < props.parts.length; index++) {
     const label = props.parts[index].duration + labels[index].label;
     labels.push({
       label,
       length: props.parts[index].duration,
-      translate: (label / total - 0.5) * 100
+      translate: (label / props.total - 0.5) * 100
     });
   }
 
