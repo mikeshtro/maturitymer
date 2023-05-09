@@ -1,6 +1,7 @@
 import styles from './Timer.module.css';
-import { Component, createSignal, For } from 'solid-js';
+import { Component, For } from 'solid-js';
 import { TimerLabels } from './TimerLabels';
+import { sum } from '~/utils/sum';
 
 type Part = {
   name: string;
@@ -12,12 +13,8 @@ type TimerProps = {
 };
 
 export const Timer: Component<TimerProps> = (props) => {
-  const parts = props.parts.map((part) => ({
-    ...part,
-    duration: part.subParts.reduce((sum, subpart) => sum + subpart, 0) / 60,
-  }))
-
-  const totalTime = parts.reduce((sum, part) => sum + part.duration, 0);
+  const parts = props.parts.map((part) => ({ ...part, duration: sum(part.subParts) / 60 }));
+  const totalTime = sum(parts, (part) => part.duration);
 
   return (
     <div class={styles.timer}>
