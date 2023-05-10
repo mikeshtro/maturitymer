@@ -1,4 +1,4 @@
-import { createSignal } from 'solid-js';
+import { createSignal, onCleanup, onMount } from 'solid-js';
 import { ActualTime } from '~/components/ActualTime';
 import { RemainingTime } from '~/components/RemainingTime';
 import { Timer } from '~/components/Timer';
@@ -13,6 +13,27 @@ export default function Home() {
     { name: 'Part 5', subParts: [60, 60, 60] },
   ];
   const pauseParts = [{ name: 'Part 1', subParts: [60, 60, 60, 60, 60] }];
+  let interval: ReturnType<typeof setInterval> | undefined;
+
+  function processKeyDown(event: KeyboardEvent): void {
+    if (event.code === 'Enter' || event.code === 'Space') {
+      if (interval == null) {
+        interval = setInterval(() => setExamDuration(value => value + 1), 1000);
+      } else {
+        setExamDuration(0);
+        clearInterval(interval);
+        interval = undefined;
+      }
+    }
+  }
+
+  onMount(() => {
+    document.addEventListener('keydown', processKeyDown);
+  });
+
+  onCleanup(() => {
+    document.removeEventListener('keydown', processKeyDown);
+  });
 
   return (
     <>

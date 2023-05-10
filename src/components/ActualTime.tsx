@@ -15,7 +15,7 @@ export const ActualTime = () => {
 
   return (
     <div
-      style={{ flex: 1, display: 'flex', 'justify-content': 'center', 'font-size': '5rem' }}
+      style={{ flex: 1, display: 'flex', 'justify-content': 'center', 'font-size': '5rem', 'padding-top': '1rem' }}
     >
       {time().getHours().toString().padStart(2, '0')}:{time().getMinutes().toString().padStart(2, '0')}
     </div>
