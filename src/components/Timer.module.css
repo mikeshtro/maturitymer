@@ -18,7 +18,8 @@
 }
 
 .subpart {
-  background: #8aef0a;
+  display: flex;
+  justify-content: flex-end;
   height: 2rem;
   border-top: 1px solid #1c1c1c;
   border-bottom: 1px solid #1c1c1c;
@@ -26,4 +27,9 @@
 
 .subpart:not(:last-child) {
   border-right: 2px solid #1c1c1c;
+}
+
+.subpart-progress {
+  height: 100%;
+  background: #8aef0a;
 }

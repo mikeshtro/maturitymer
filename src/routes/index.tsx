@@ -5,6 +5,8 @@ import { Timer } from '~/components/Timer';
 
 export default function Home() {
   const [examDuration, setExamDuration] = createSignal(0);
+  const [examPart, setExamPart] = createSignal<'exam' | 'pause'>('exam');
+
   const examParts = [
     { name: 'Part 1', subParts: [60, 60, 60] },
     { name: 'Part 2', subParts: [60, 60, 60] },
@@ -13,6 +15,9 @@ export default function Home() {
     { name: 'Part 5', subParts: [60, 60, 60] },
   ];
   const pauseParts = [{ name: 'Part 1', subParts: [60, 60, 60, 60, 60] }];
+
+  const actualParts = () => examPart() === 'exam' ? examParts : pauseParts;
+
   let interval: ReturnType<typeof setInterval> | undefined;
 
   function processKeyDown(event: KeyboardEvent): void {
@@ -21,10 +26,16 @@ export default function Home() {
         interval = setInterval(() => setExamDuration(value => value + 1), 1000);
       } else {
         setExamDuration(0);
+        setExamPart('exam');
         clearInterval(interval);
         interval = undefined;
       }
     }
+  }
+
+  function switchExamPart(): void {
+    setExamPart(part => part === 'exam' ? 'pause' : 'exam');
+    setExamDuration(0);
   }
 
   onMount(() => {
@@ -37,11 +48,11 @@ export default function Home() {
 
   return (
     <>
-      <Timer parts={examParts} />
+      <Timer parts={actualParts()} currentDuration={examDuration()} />
       <div style={{ display: 'flex', 'align-items': 'center' }}>
-        <RemainingTime parts={examParts} currentDuration={examDuration()} />
+        <RemainingTime parts={actualParts()} currentDuration={examDuration()} switchExamPart={switchExamPart} />
         <div style={{ flex: 1 }}>
-          <Timer parts={pauseParts} />
+          <Timer parts={pauseParts} currentDuration={examDuration()} />
         </div>
         <ActualTime />
       </div>

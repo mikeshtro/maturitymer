@@ -1,3 +1,4 @@
+import { createEffect } from 'solid-js';
 import { sum } from "~/utils/sum";
 
 type Part = {
@@ -7,6 +8,7 @@ type Part = {
 type RemainingTimeProps = {
   currentDuration: number;
   parts: Part[];
+  switchExamPart: () => void;
 }
 
 export const RemainingTime = (props: RemainingTimeProps) => {
@@ -15,6 +17,13 @@ export const RemainingTime = (props: RemainingTimeProps) => {
   const remainingTime = () => (totalTime() - props.currentDuration) / 60;
   const remainingMinutes = () => Math.floor(remainingTime());
   const remainingSeconds = () => Math.round((remainingTime() - remainingMinutes()) * 60);
+
+  createEffect(() => {
+    if (remainingTime() === 0) {
+      props.switchExamPart();
+    }
+  });
+
 
   return (
     <div
