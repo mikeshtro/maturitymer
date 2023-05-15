@@ -20,7 +20,11 @@ export const TimerSubPart = (props: TimerSubPartProps) => {
 
   return (
     <div class={styles.subpart} style={{ flex: props.length }}>
-      <div class={styles['subpart-progress']} style={{ width: width() * 100 + '%' }}></div>
+      <div
+        class={styles['subpart-progress']}
+        classList={{ [styles['subpart-progress-expiring']]: width() <= 0.5 }}
+        style={{ width: width() * 100 + '%' }}
+      ></div>
     </div>
   )
 }

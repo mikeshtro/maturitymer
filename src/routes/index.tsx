@@ -6,6 +6,8 @@ import { Timer } from '~/components/Timer';
 export default function Home() {
   const [examDuration, setExamDuration] = createSignal(0);
   const [examPart, setExamPart] = createSignal<'exam' | 'pause'>('exam');
+  const examPartDuration = () => examPart() === 'exam' ? examDuration() : 0;
+  const pausePartDuration = () => examPart() === 'pause' ? examDuration() : 0;
 
   const examParts = [
     { name: 'Part 1', subParts: [60, 60, 60] },
@@ -48,11 +50,11 @@ export default function Home() {
 
   return (
     <>
-      <Timer parts={actualParts()} currentDuration={examDuration()} />
+      <Timer parts={examParts} currentDuration={examPartDuration()} />
       <div style={{ display: 'flex', 'align-items': 'center' }}>
         <RemainingTime parts={actualParts()} currentDuration={examDuration()} switchExamPart={switchExamPart} />
         <div style={{ flex: 1 }}>
-          <Timer parts={pauseParts} currentDuration={examDuration()} />
+          <Timer parts={pauseParts} currentDuration={pausePartDuration()} />
         </div>
         <ActualTime />
       </div>
